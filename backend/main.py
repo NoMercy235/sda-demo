@@ -2,7 +2,7 @@ import http.server
 import socketserver
 import json
 
-PORT = 8000
+PORT = 1005
 
 jokes = [
   {

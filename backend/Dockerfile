@@ -7,5 +7,7 @@ WORKDIR /code
 # copy the content of the local src directory to the working directory
 COPY main.py .
 
+EXPOSE 1005
+
 # command to run on container start
 CMD [ "python", "./main.py" ]
