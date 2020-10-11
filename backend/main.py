@@ -1,6 +1,7 @@
 import http.server
 import socketserver
 import json
+import random
 
 PORT = 1005
 
@@ -69,21 +70,39 @@ jokes = [
 
 
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        # if self.path === '/jokes' return jokes else return random(jokes)
-
-        # Sending an '200 OK' response
-        self.send_response(200)
-
+    def _set_headers(self):
         # Setting the header
         self.send_header("Content-type", "application/json")
         self.send_header("Access-Control-Allow-Origin", "*")
 
         # Whenever using 'send_header', you also have to call 'end_headers'
         self.end_headers()
+        return
 
-        self.wfile.write(bytes(json.dumps(jokes), 'utf8'))
+    def get_one_joke(self):
+        return jokes[random.randint(0, 9)]
 
+    def get_jokes(self):
+        return jokes
+
+    def do_GET(self):
+        if self.path == '/jokes':
+            self.send_response(200)
+            self._set_headers()
+            result = self.get_jokes()
+            print(result)
+            self.wfile.write(bytes(json.dumps(result), 'utf8'))
+            return
+
+        if self.path == '/jokes/one':
+            self.send_response(200)
+            self._set_headers()
+            result = self.get_one_joke()
+            self.wfile.write(bytes(json.dumps(result), 'utf8'))
+            return
+
+        self.send_response(404)
+        self._set_headers()
         return
 
 
