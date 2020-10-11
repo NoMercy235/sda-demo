@@ -1,23 +1,40 @@
+console.log(CONFIG.ENDPOINT);
+
 const jokes = document.querySelector('.jokes');
 const getOneJoke = document.querySelector('#getOneJoke');
 const getTenJokes = document.querySelector('#getTenJokes');
 
 getOneJoke.addEventListener('click', async () => {
-  // const result = await fetch('http://212.237.26.52:1005/');
-  const result = await fetch('http://localhost:1005/jokes/one');
+  const result = await fetch(`${CONFIG.ENDPOINT}/jokes/one`);
   const data = (await result.json())
-  console.log(data);
+  createContainer();
+  createJoke(data);
 });
 
 getTenJokes.addEventListener('click', async () => {
-  // const result = await fetch('http://212.237.26.52:1005/');
-  const result = await fetch('http://localhost:1005/jokes');
+  console.log(CONFIG.ENDPOINT);
+  const result = await fetch(`${CONFIG.ENDPOINT}/jokes`);
   const data = (await result.json())
   console.log(data);
+  createContainer();
   data.forEach(createJoke);
 });
 
+function createContainer() {
+  const existingJokes = document.querySelector('.jokes');
+
+  const body = document.querySelector('#body');
+  const jokes = document.createElement('div');
+  jokes.classList.add('jokes');
+  if (existingJokes) {
+    body.replaceChild(jokes, existingJokes);
+  } else {
+    body.appendChild(jokes);
+  }
+}
+
 function createJoke(metadata) {
+  const jokes = document.querySelector('.jokes');
   const container = document.createElement('div');
 
   container.classList.add('joke-container')
