@@ -70,11 +70,14 @@ jokes = [
 
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
+        # if self.path === '/jokes' return jokes else return random(jokes)
+
         # Sending an '200 OK' response
         self.send_response(200)
 
         # Setting the header
         self.send_header("Content-type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
 
         # Whenever using 'send_header', you also have to call 'end_headers'
         self.end_headers()
