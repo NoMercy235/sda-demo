@@ -1,5 +1,3 @@
-
-
 const generateImage = (url) => {
     const imgNode = document.createElement("img");
     imgNode.setAttribute("src",url);
@@ -9,18 +7,11 @@ const generateImage = (url) => {
     return imgNode;
 }
 
-// const el = generateImage ("https://image.shutterstock.com/image-vector/pet-logo-260nw-713550874.jpg")
-
-// document.body.appendChild(el);
-
 const generateText = (elType,text) => {
     const textNode = document.createElement(elType)
     textNode.innerHTML = text ; 
     return textNode;
 }
-//  const el = generateCardTitle ("h3","text")
-
-//  document.body.appendChild(el);
 
 const generateCard = (url, breed, age , content) =>{
     const cardNode = document.createElement("div")
@@ -40,12 +31,34 @@ const generateCard = (url, breed, age , content) =>{
     cardNode.appendChild(contentNode)
     return cardNode;
 }
- const el = generateCard(
-    "https://image.shutterstock.com/image-vector/pet-logo-260nw-713550874.jpg",
-    "husky",
-    "25",
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
-  )
+
+
+fetch('http://localhost:3000/pets')
+  .then(response => response.json())
+  .then(pets => {
+    console.log(pets);
+    pets.forEach(pet => {
+      const cardNode = generateCard(pet.url, pet.breed, pet.age, pet.description);
+      document.body.appendChild(cardNode);
+    });
+  });
+
+
+
+
+// const el = generateImage ("https://image.shutterstock.com/image-vector/pet-logo-260nw-713550874.jpg")
+
+// document.body.appendChild(el);
+//  const el = generateCardTitle ("h3","text")
+
+//  document.body.appendChild(el);
+//  const el = generateCard(
+//     "https://image.shutterstock.com/image-vector/pet-logo-260nw-713550874.jpg",
+//     "husky",
+//     "25",
+//     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+//   )
   
 
- document.body.appendChild(el);
+//  document.body.appendChild(el);
+

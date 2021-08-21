@@ -37,6 +37,9 @@ const pets = [
 
 app.use(express.static('public'))
 
+app.get('/pets', (req, res) => res.json(pets));
+
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })
