@@ -1,0 +1,29 @@
+.header{
+
+ display: flex;
+ align-items: center;
+ border-bottom:solid;
+
+
+}
+
+.space{
+    flex-grow: 1;
+}
+
+.about-btn{
+    margin-right: 10px;
+
+}
+.login-btn{
+ margin-right: 10px;
+}
+.imgSpace{
+    margin-left: 10px;
+}
+
+
+.body{
+ margin: 0;
+}
+
